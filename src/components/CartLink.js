@@ -7,6 +7,7 @@ import AuthContext from '../context/AuthContext'
 const CartLink = () => {
     const [itens, setItens] = useState(0)
     const { access_token } = useContext(AuthContext)
+    
     useEffect(() => {
         const getData = async () => {
             const length = await service.getLengthCart(access_token)
