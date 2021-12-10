@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Form from '../components/Form'
+import { useNavigate } from 'react-router-dom'
 import { ButtonSubmit, 
         GroupInputs, 
         Input, 
@@ -15,15 +16,12 @@ const FormRegister = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+    const navigate = useNavigate()
 
     useEffect(() => {
+
         const verify_credentials = async () => {
             const credentials = await service.credentialsIsValid(username, email)
-            console.log(credentials)
             if(!credentials.username_isvalid){
                 setError('Usuário indisponível')
             }else if(!credentials.email_isvalid){
@@ -32,7 +30,9 @@ const FormRegister = () => {
                 setError('')
             }
         }
-        verify_credentials()
+        const debounce = setTimeout(() => verify_credentials(), 500)
+
+        return () => clearTimeout(debounce)
     }, [username, email])
 
     useEffect(() => {
@@ -42,8 +42,21 @@ const FormRegister = () => {
         }else if(error === msg_error){
             setError('')
         }
-
     }, [password2])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if(error === ''){
+            const response = await service.register(username, password, email)
+            if(response === 201){
+                navigate('/login')
+            }else{
+                alert('Algo deu errado com o seu cadastro!')
+            }
+        }else{
+            alert(error)
+        }
+    }
 
     const checkLength = (e) => {
         const pwd = e.target.value
