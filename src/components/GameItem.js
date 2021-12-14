@@ -61,11 +61,7 @@ const GameItem = ({color, name, options, total_numbers, total_queue}) => {
     }
 
     const handleQuoteNumbers = (e) => {
-        if(e.target.value >= 1){
-            setQuoteNumbers(e.target.value)
-        }else{
-            setQuoteNumbers(1)
-        }
+        setQuoteNumbers(e.target.value)
     }
 
     const handleSubmit = () => {
@@ -73,14 +69,19 @@ const GameItem = ({color, name, options, total_numbers, total_queue}) => {
     }
 
     const handleConfirm = async () => {
-        const response = await service.sendRequest(
-                                        options[numbers-min].id, 
-                                        quote_numbers,
-                                        selecteds,
-                                        access_token)
-        setToggle(false)
-        handleSubmit()
-        return response
+        if(quote_numbers > 0){
+            const response = await service.sendRequest(
+                                            options[numbers-min].id, 
+                                            quote_numbers,
+                                            selecteds,
+                                            access_token)
+                                        
+            setToggle(false)
+            handleSubmit()
+            return response
+        }else{
+            alert('O número de cotas deve ser maior do que zero!')
+        }
     }
 
     return (
