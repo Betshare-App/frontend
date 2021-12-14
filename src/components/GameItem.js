@@ -65,11 +65,14 @@ const GameItem = ({color, name, options, total_numbers, total_queue}) => {
     }
 
     const handleSubmit = () => {
-        setConfirmScreen(!confirmScreen)
+        if(quote_numbers > 0){
+            setConfirmScreen(!confirmScreen)
+        }else{
+            alert("O número de cotas deve ser maior do que zero")
+        }
     }
 
     const handleConfirm = async () => {
-        if(quote_numbers > 0){
             const response = await service.sendRequest(
                                             options[numbers-min].id, 
                                             quote_numbers,
@@ -79,9 +82,6 @@ const GameItem = ({color, name, options, total_numbers, total_queue}) => {
             setToggle(false)
             handleSubmit()
             return response
-        }else{
-            alert('O número de cotas deve ser maior do que zero!')
-        }
     }
 
     return (
