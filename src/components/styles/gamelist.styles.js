@@ -17,7 +17,7 @@ export const ContainerGameItem = styled.div`
     background: #FFFCD5;
     flex-direction: column;
     margin: 5px;
-    max-height: ${props => props.toggle ? '90%' : '300px'};
+    max-height: ${props => props.toggle ? '150%' : '300px'};
     &:hover{
         background: ${props => props.toggle ? '#FFFCD5' : '#F8F1D1'};
         cursor: ${props => props.toggle ? 'initial' : 'pointer'};
