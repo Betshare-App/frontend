@@ -20,6 +20,7 @@ import GameContext from '../context/GameContext'
 import GameHeader from './GameHeader'
 import NumbersSquare from './NumbersSquare'
 import AuthContext from '../context/AuthContext'
+import CartContext from '../context/CartContext'
 
 const GameItem = ({color, name, options, total_numbers, total_queue}) => {
     const min = options[0]['numbers']
@@ -40,6 +41,7 @@ const GameItem = ({color, name, options, total_numbers, total_queue}) => {
     }
 
     const { access_token } = useContext(AuthContext)
+    const { add } = useContext(CartContext)
     const context = {
         name: name,
         color: color,
@@ -81,6 +83,7 @@ const GameItem = ({color, name, options, total_numbers, total_queue}) => {
                                         
             setToggle(false)
             handleSubmit()
+            add()
             return response
     }
 
