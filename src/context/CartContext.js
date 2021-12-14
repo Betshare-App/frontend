@@ -19,6 +19,10 @@ export const CartProvider = ({children}) => {
         setCart(cart-1)
     }
 
+    const clear = () => {
+        setCart(0)
+    }
+
     useEffect(() => {
         const getData = async () => {
             const length = await service.getLengthCart(access_token)
@@ -31,7 +35,8 @@ export const CartProvider = ({children}) => {
     const context = {
         cart: cart,
         add: addCart,
-        remove: removeCart
+        remove: removeCart,
+        clearCart: clear
     }
     return (
         <CartContext.Provider value={context}>

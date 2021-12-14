@@ -13,16 +13,14 @@ const Header = () => {
         <ContainerHeader>
             <Inner>
                 <Logo />
-                {access_token &&
+                <ContainerAuth>
+                {access_token ?
                 <>
                     <CartLink />
                     <TicketsLink />
-                </>
-                }
-                <ContainerAuth>
-                {!access_token ? 
-                    <LoginButton /> :
                     <LogoutButton />
+                </> : 
+                    <LoginButton />
                 }
                 </ContainerAuth>
             </Inner>

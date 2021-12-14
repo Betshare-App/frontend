@@ -41,6 +41,9 @@ export const ContainerAuth = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
+    div{
+        margin: 0 10px;
+    }
 `
 
 export const Inner =  styled.div`
@@ -58,7 +61,6 @@ export const ContainerCartLink = styled.div`
         justify-content: center;
         align-items: center;
         color: white;
-        margin-right: 10px;
         font-weight: 600;
         font-family: 'Futura Bold';
         text-decoration: none;
@@ -79,7 +81,8 @@ export const ViewCountCart = styled.div`
     position: relative;
     z-index: 2;
     top: 10px;
-    left: -8%;
+    left: -15px;
+    margin: 0;
 `
 
 export const ContainerTicketsLink = styled.div`

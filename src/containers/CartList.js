@@ -13,6 +13,7 @@ import { ContainerTable,
     ContainerTableBody} from '../components/styles/tables.styles'
 import CartItem from '../components/CartItem'
 import AuthContext from '../context/AuthContext'
+import CartContext from '../context/CartContext'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -21,6 +22,7 @@ const TableCart = () => {
     const [totalPrice, setTotalPrice] = useState(0)
     const { access_token, logout } = useContext(AuthContext)
     const navigate = useNavigate()
+    const { clearCart } = useContext(CartContext)
     useEffect(() => {
         const getCart = async () => {
             const response = await service.getCart(access_token)
@@ -39,6 +41,7 @@ const TableCart = () => {
         const payment =  await service.setPayment(access_token)
         if(payment === 200){
             setCart([])
+            clearCart()
         }
     }
 

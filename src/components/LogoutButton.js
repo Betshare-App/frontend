@@ -13,7 +13,7 @@ const LogoutButton = () => {
 
     return (
         <LogoutBtn onClick={handleLogout}>
-            Logout
+            Sair
         </LogoutBtn>
     )
 }
