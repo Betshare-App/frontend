@@ -4,7 +4,7 @@ import { AuthButton } from './styles/header.styles'
 const LoginButton = () => {
     return (
         <AuthButton to='/login'>
-            Login
+            Entrar
         </AuthButton>
     )
 }
