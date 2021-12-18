@@ -7,7 +7,8 @@ import { URL,
     endpoint_get_token,
     endpoint_refresh_token,
     endpoint_register,
-    endpoint_credIsValid} from "../constants/globals"
+    endpoint_credIsValid,
+    endpoint_get_balance} from "../constants/globals"
 
 export const service = {
     getGames: async (access_token) =>{
@@ -161,7 +162,8 @@ export const service = {
     },
 
     refreshToken: async () => {
-        const token_refresh = localStorage.getItem('refresh_betshare') ?  JSON.stringify({
+        const token_refresh = localStorage.getItem('refresh_betshare') ?  
+        JSON.stringify({
             'refresh': localStorage.getItem('refresh_betshare')
         }) :  null
         if(token_refresh){
@@ -218,5 +220,18 @@ export const service = {
         const username_isvalid = await response['username_isvalid']
         const email_isvalid = await response['email_isvalid']
         return {username_isvalid, email_isvalid}
+    },
+
+    getBalance: async (access_token) => {
+        const response = await fetch(URL+endpoint_get_balance, {
+            headers: {
+                'Authorization': 'Bearer ' + access_token
+            }
+        })
+        if(response.status === 200){
+            const balance = await response.json()
+            return balance
+        }
+        return 0
     }
 }

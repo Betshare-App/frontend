@@ -29,6 +29,12 @@ export const AuthButton = styled(Link)`
     font-family: 'Futura Bold';
     text-decoration: none;
 `
+export const LabelBalance = styled.div`
+    color: white;
+    font-weight: 600;
+    font-family: 'Futura Bold';
+`
+
 export const LogoutBtn = styled.div`
     color: white;
     margin-right: 10px;
