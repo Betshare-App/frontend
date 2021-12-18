@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import Balance from '../components/Balance'
 import CartLink from '../components/CartLink'
+import InfoLink from '../components/InfoLink'
 import LoginButton from '../components/LoginButton'
 import Logo from '../components/Logo'
 import LogoutButton from '../components/LogoutButton'
@@ -18,6 +19,7 @@ const Header = () => {
                 <ContainerAuth>
                 {access_token ?
                 <>
+                    <InfoLink />
                     <CartLink />
                     <TicketsLink />
                     <LogoutButton />

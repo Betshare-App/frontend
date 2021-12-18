@@ -1,12 +1,12 @@
 import React from 'react'
 import { HeaderLink } from './styles/header.styles'
 
-const TicketsLink = () => {
+const InfoLink = () => {
     return (
-        <HeaderLink to='/tickets'>
-            Bilhetes
+        <HeaderLink to='/info'>
+            Informações
         </HeaderLink>
     )
 }
 
-export default TicketsLink
+export default InfoLink

@@ -74,3 +74,23 @@ export const ErrorMessage = styled.span`
     color: red;
     text-align: center;
 `
+
+export const Menu = styled.div`
+    display: flex;
+    margin: 50px 0 -40px 0;
+    height: 40px;
+    width: 180px;
+    background: #fff;
+`
+
+export const ItemMenu = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    font-family: 'Futura Bold';
+    font-size: 0.8rem; 
+    color: ${props => props.active ? '#fff' : '#000'};
+    background: ${props => props.active ? '#005DA8' : '#fff' };
+    cursor: pointer;
+`

@@ -22,7 +22,7 @@ export const ContainerHeader = styled.div`
     display: flex;
     justify-content: center;
 `
-export const AuthButton = styled(Link)`
+export const HeaderLink = styled(Link)`
     color: white;
     margin-right: 10px;
     font-weight: 600;

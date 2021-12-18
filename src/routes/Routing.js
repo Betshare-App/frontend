@@ -5,8 +5,9 @@ import Register from '../pages/Register'
 import Home from '../pages/Home';
 import Cart from '../pages/Cart';
 import Tickets from '../pages/Tickets';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import AuthContext from '../context/AuthContext';
+import PersonalInfo from '../pages/PersonalInfo';
 
 const Routing = () => {
     return (
@@ -17,6 +18,7 @@ const Routing = () => {
                         <Route path='/home' element={<Home />} />
                         <Route path='/cart'element={<Cart />} />
                         <Route path='/tickets' element={<Tickets />} />
+                        <Route path='/info' element={<PersonalInfo />} />
                         <Route path='*' element={<Home />} />
                     </Routes>) :
                     (<Routes>
