@@ -8,7 +8,8 @@ import { URL,
     endpoint_refresh_token,
     endpoint_register,
     endpoint_credIsValid,
-    endpoint_get_balance} from "../constants/globals"
+    endpoint_get_balance,
+    endpoint_register_personal_info} from "../constants/globals"
 
 export const service = {
     getGames: async (access_token) =>{
@@ -204,6 +205,19 @@ export const service = {
         }).then((response) => response.status)
         return response
     },
+
+    register_personal_info: async(access_token, data) => {
+        const request = await fetch(URL+endpoint_register_personal_info, {
+            method: 'POST',
+            headers:{
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            },
+            body: data
+        }).then(response => response.status)
+        
+        return request
+    },
     
     credentialsIsValid: async (username, email) => {
         const data = JSON.stringify({
@@ -225,7 +239,7 @@ export const service = {
     getBalance: async (access_token) => {
         const response = await fetch(URL+endpoint_get_balance, {
             headers: {
-                'Authorization': 'Bearer ' + access_token
+                'Authorization': `Bearer ${access_token}`
             }
         })
         if(response.status === 200){

@@ -21,7 +21,7 @@ const FormFinanceInfo = () => {
 
     return (
         <Form>
-            <TitleForm>Informação Financeiras</TitleForm>
+            <TitleForm>Informações Bancárias</TitleForm>
             <GroupInputs>
                 <Label htmlFor='bank'>Banco:</Label>
                 <Input 

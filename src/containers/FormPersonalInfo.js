@@ -4,8 +4,8 @@ import { ButtonSubmit, GroupInputs, Input, Label, TitleForm } from '../component
 
 const FormPersonalInfo = () => {
     const [item, setItem] = useState({
-        firstname: '',
-        lastname: '',
+        first_name: '',
+        last_name: '',
         rg: '',
         cpf: '',
         phone: '',
@@ -18,21 +18,34 @@ const FormPersonalInfo = () => {
         setItem({...item, [name]:value})
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const data = {
+            fisrt_name: item.first_name,
+            last_name: item.last_name,
+            rg: item.rg,
+            cpf: item.cpf,
+            phone: item.phone,
+            date_of_birth: item.date_of_birth
+        }
+    
+    }
+
     return (
-        <Form>
-            <TitleForm>Informações Pessoais</TitleForm>
+        <Form action={handleSubmit}>
+            <TitleForm>Informações de Identificação</TitleForm>
             <GroupInputs>
-                <Label htmlFor='firstname'>Nome:</Label>
+                <Label htmlFor='first_name'>Nome:</Label>
                 <Input 
                     type='text'
-                    name='firstname'
+                    name='first_name'
                     onChange={handleChange} />
             </GroupInputs>
             <GroupInputs>
-                <Label htmlFor='lastname'>Sobrenome:</Label>
+                <Label htmlFor='last_name'>Sobrenome:</Label>
                 <Input
                     type='text'
-                    name='lastname'
+                    name='last_name'
                     onChange={handleChange} /> 
             </GroupInputs>
             <GroupInputs>

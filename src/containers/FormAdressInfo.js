@@ -23,7 +23,7 @@ const FormAdressInfo = () => {
 
     return (
         <Form>
-            <TitleForm>Endereço</TitleForm>
+            <TitleForm>Informação de Endereço</TitleForm>
             <GroupInputs>
                 <Label htmlFor='street'>Rua: </Label>
                 <Input

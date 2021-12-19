@@ -8,7 +8,7 @@ import Layout from '../containers/Layout'
 const PersonalInfo = () => {
     const initialData = [
         { 
-            name: 'Pessoal',
+            name: 'Identificação',
             active: true,
             element: <FormPersonalInfo />,
         },
@@ -18,7 +18,7 @@ const PersonalInfo = () => {
             element: <FormAdressInfo />,
         },
         { 
-            name: 'Financeiro',
+            name: 'Conta Bancária',
             active: false,
             element: <FormFinanceInfo />,
         }
@@ -36,8 +36,6 @@ const PersonalInfo = () => {
     return (
         <Layout>
             <DropDown data={choice} handle={handleData} />
-            {choice.map((item) => item.active ? 
-            item.element : null)}
         </Layout>
     )
 }
