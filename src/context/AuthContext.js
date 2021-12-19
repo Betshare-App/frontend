@@ -13,6 +13,7 @@ export const AuthProvider = ({children}) => {
     localStorage.getItem('refresh_betshare') ? 
     localStorage.getItem('refresh_betshare') : 
     null)
+    const [personalInfo, setPersonalInfo] = useState({})
 
     const Login = async (username, password) => {
         const status = await service.Login(username, password)
@@ -42,11 +43,20 @@ export const AuthProvider = ({children}) => {
         return () => clearInterval(interval)
     }, [])
 
+    useEffect(() => {
+        const getPersonalInfo = async () => {
+            const data = await service.getPersonalInfo(access)
+            setPersonalInfo(data)
+        }
+        getPersonalInfo()
+    }, [])
+
     const context = {
         access_token: access,
         refresh_token: refresh,
         login: Login,
-        logout: Logout
+        logout: Logout,
+        personal_info: personalInfo, 
     }
 
     return (

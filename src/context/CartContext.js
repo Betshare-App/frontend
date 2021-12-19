@@ -25,7 +25,7 @@ export const CartProvider = ({children}) => {
 
     useEffect(() => {
         const getData = async () => {
-            const length = await service.getLengthCart(access_token)
+            const length = access_token ? await service.getLengthCart(access_token) : null 
             setCart(length)
         }
         getData()

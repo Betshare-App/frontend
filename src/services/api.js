@@ -206,16 +206,27 @@ export const service = {
         return response
     },
 
-    register_personal_info: async(access_token, data) => {
+    registerPersonalInfo: async(access_token, data) => {
         const request = await fetch(URL+endpoint_register_personal_info, {
             method: 'POST',
             headers:{
                 'Authorization': `Bearer ${access_token}`,
                 'Content-Type': 'application/json'
             },
-            body: data
+            body: JSON.stringify(data)
         }).then(response => response.status)
-        
+        return request
+    },
+
+    getPersonalInfo: async(access_token) => {
+        const request = await fetch(URL+endpoint_register_personal_info, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+
         return request
     },
     

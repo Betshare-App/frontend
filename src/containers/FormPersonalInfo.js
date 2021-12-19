@@ -7,7 +7,7 @@ import AuthContext from '../context/AuthContext'
 
 const FormPersonalInfo = () => {
     const navigate = useNavigate()
-    const { access_token } = useContext(AuthContext)
+    const { access_token, personal_info } = useContext(AuthContext)
     const [error, setError] = useState([
         {field: 'CPF', 
         error: false, 
@@ -19,14 +19,17 @@ const FormPersonalInfo = () => {
         error: false, 
         message: 'A idade mínima é 18 anos!'}
     ])
+
     const [item, setItem] = useState({
-        first_name: '',
-        last_name: '',
-        rg: '',
-        cpf: '',
-        phone: '',
-        date_of_birth: ''
+        first_name: personal_info ? personal_info.first_name : '',
+        last_name: personal_info ? personal_info.last_name : '',
+        rg: personal_info ? personal_info.rg : '',
+        cpf: personal_info ? personal_info.cpf : '',
+        phone: personal_info ? personal_info.phone : '',
+        date_of_birth: personal_info ? personal_info.date_of_birth : ''
     })
+
+    console.log(personal_info)
 
     const handleChange = (e) => {
         const name = e.target.name
@@ -105,7 +108,7 @@ const FormPersonalInfo = () => {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
     
         const isValid = true
@@ -113,18 +116,18 @@ const FormPersonalInfo = () => {
         error.map(item => item.error ? isValid = false : null)
         if(isValid && NotIsNull()){
             const data = {
-                fisrt_name: item.first_name,
+                first_name: item.first_name,
                 last_name: item.last_name,
                 rg: item.rg,
                 cpf: item.cpf,
                 phone: item.phone,
                 date_of_birth: item.date_of_birth
             }
-            const status = service.register_personal_info(access_token, data)
+            const status = await service.registerPersonalInfo(access_token, data)
             if(status === 200){
                 navigate('/home')
             }else{
-                alert('Algo deu errado com a sua atualização!')
+                alert('Algo deu errado com a sua atualização!' + status)
             }
         }
     }
@@ -138,21 +141,25 @@ const FormPersonalInfo = () => {
                 <Input 
                     type='text'
                     name='first_name'
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    value={item.first_name}
+                    />
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='last_name'>Sobrenome:</Label>
                 <Input
                     type='text'
                     name='last_name'
-                    onChange={handleChange} /> 
+                    onChange={handleChange}
+                    value={item.last_name} /> 
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='rg'>RG:</Label>
                 <Input
                     type='number'
                     name='rg'
-                    onChange={handleChange} /> 
+                    onChange={handleChange}
+                    value={item.rg} /> 
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='cpf'>CPF:</Label>
@@ -160,7 +167,8 @@ const FormPersonalInfo = () => {
                     type='number'
                     name='cpf'
                     onChange={handleChange}
-                    onBlur={ValidateCPF} /> 
+                    onBlur={ValidateCPF}
+                    value={item.cpf} /> 
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='phone'>Celular:</Label>
@@ -168,7 +176,8 @@ const FormPersonalInfo = () => {
                     type='number'
                     name='phone'
                     onChange={handleChange}
-                    onBlur={ValidatePhone} /> 
+                    onBlur={ValidatePhone}
+                    value={item.phone} /> 
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='date_of_birth'>Data de Nascimento:</Label>
@@ -176,7 +185,8 @@ const FormPersonalInfo = () => {
                     type='date'
                     name='date_of_birth'
                     onChange={handleChange}
-                    onBlur={ValidateDateOfBirth} /> 
+                    onBlur={ValidateDateOfBirth}
+                    value={item.date_of_birth} /> 
             </GroupInputs>
             <ButtonSubmit>Salvar</ButtonSubmit>
         </Form>
