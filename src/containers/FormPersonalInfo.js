@@ -8,6 +8,8 @@ import AuthContext from '../context/AuthContext'
 const FormPersonalInfo = () => {
     const navigate = useNavigate()
     const { access_token, personal_info } = useContext(AuthContext)
+    const isTherePersonalInfo =  personal_info ? true : false;
+    const [editableInputs, setEditableInputs] = useState(!isTherePersonalInfo)
     const [error, setError] = useState([
         {field: 'CPF', 
         error: false, 
@@ -29,7 +31,7 @@ const FormPersonalInfo = () => {
         date_of_birth: personal_info ? personal_info.date_of_birth : ''
     })
 
-    console.log(personal_info)
+    
 
     const handleChange = (e) => {
         const name = e.target.name
@@ -143,6 +145,7 @@ const FormPersonalInfo = () => {
                     name='first_name'
                     onChange={handleChange}
                     value={item.first_name}
+                    readOnly={!editableInputs}
                     />
             </GroupInputs>
             <GroupInputs>
@@ -151,7 +154,9 @@ const FormPersonalInfo = () => {
                     type='text'
                     name='last_name'
                     onChange={handleChange}
-                    value={item.last_name} /> 
+                    value={item.last_name} 
+                    readOnly={!editableInputs}
+                    /> 
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='rg'>RG:</Label>
@@ -159,7 +164,9 @@ const FormPersonalInfo = () => {
                     type='number'
                     name='rg'
                     onChange={handleChange}
-                    value={item.rg} /> 
+                    value={item.rg} 
+                    readOnly={!editableInputs}
+                    /> 
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='cpf'>CPF:</Label>
@@ -168,7 +175,9 @@ const FormPersonalInfo = () => {
                     name='cpf'
                     onChange={handleChange}
                     onBlur={ValidateCPF}
-                    value={item.cpf} /> 
+                    value={item.cpf} 
+                    readOnly={!editableInputs}
+                    /> 
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='phone'>Celular:</Label>
@@ -177,7 +186,9 @@ const FormPersonalInfo = () => {
                     name='phone'
                     onChange={handleChange}
                     onBlur={ValidatePhone}
-                    value={item.phone} /> 
+                    value={item.phone}
+                    readOnly={!editableInputs} 
+                    /> 
             </GroupInputs>
             <GroupInputs>
                 <Label htmlFor='date_of_birth'>Data de Nascimento:</Label>
@@ -186,9 +197,14 @@ const FormPersonalInfo = () => {
                     name='date_of_birth'
                     onChange={handleChange}
                     onBlur={ValidateDateOfBirth}
-                    value={item.date_of_birth} /> 
+                    value={item.date_of_birth}
+                    readOnly={!editableInputs}
+                    /> 
             </GroupInputs>
-            <ButtonSubmit>Salvar</ButtonSubmit>
+            {isTherePersonalInfo ?
+            <ButtonSubmit type='button'>Editar</ButtonSubmit> :
+            <ButtonSubmit type='submit'>Salvar</ButtonSubmit>
+            }   
         </Form>
     )
 }

@@ -42,7 +42,8 @@ export const Label = styled.label`
 export const Input = styled.input`
     flex: 1;
     padding: 5px;
-    border: 1px solid
+    border: 1px solid;
+    outline: none;
 `
 
 export const SecundaryButton = styled(Link)`
