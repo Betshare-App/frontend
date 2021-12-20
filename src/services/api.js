@@ -225,9 +225,14 @@ export const service = {
                 'Authorization': `Bearer ${access_token}`,
                 'Content-Type': 'application/json'
             }
-        }).then(response => response.json())
-
-        return request
+        })
+        const status = await request.status
+        if(status === 200){
+            const data = await request.json()
+            return data
+        }else{
+            return {}
+        }
     },
     
     credentialsIsValid: async (username, email) => {

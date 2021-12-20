@@ -1,122 +1,97 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Form from '../components/Form'
 import { ButtonSubmit, ErrorMessage, GroupInputs, Input, Label, TitleForm } from '../components/styles/form.styles'
 import { service } from '../services/api'
 import AuthContext from '../context/AuthContext'
+import validators from '../utils/validators'
 
 const FormPersonalInfo = () => {
     const navigate = useNavigate()
-    const { access_token, personal_info } = useContext(AuthContext)
-    const isTherePersonalInfo =  personal_info ? true : false;
-    const [editableInputs, setEditableInputs] = useState(!isTherePersonalInfo)
+    const { access_token } = useContext(AuthContext)
+    const [personalInfo, setPersonalInfo] = useState({})
+    const [editableInputs, setEditableInputs] = useState(true)
     const [error, setError] = useState([
-        {field: 'CPF', 
-        error: false, 
-        message: 'CPF/CPNJ inválido'},
-        {field: 'phone', 
-        error: false, 
-        message: 'Número de celular inválido'},
-        {field: 'date', 
-        error: false, 
-        message: 'A idade mínima é 18 anos!'}
+        {
+            field: 'CPF', 
+            error: false, 
+            message: 'CPF/CNPJ inválido'},
+        {
+            field: 'phone', 
+            error: false, 
+            message: 'Número de celular inválido'},
+        {
+            field: 'date_of_birth', 
+            error: false, 
+            message: 'A idade mínima é 18 anos!'},
     ])
-
     const [item, setItem] = useState({
-        first_name: personal_info ? personal_info.first_name : '',
-        last_name: personal_info ? personal_info.last_name : '',
-        rg: personal_info ? personal_info.rg : '',
-        cpf: personal_info ? personal_info.cpf : '',
-        phone: personal_info ? personal_info.phone : '',
-        date_of_birth: personal_info ? personal_info.date_of_birth : ''
+        first_name: '',
+        last_name: '',
+        rg: '',
+        cpf: '',
+        phone: '',
+        date_of_birth: '',
     })
 
-    
+    useEffect(() => {
+        const getPersonalInfo = async () => {
+            const data = await service.getPersonalInfo(access_token)
+            setPersonalInfo(data)
+        }
+        getPersonalInfo()
+    }, [])
 
+    useEffect(() => {
+        if(Object.keys(personalInfo).length > 0){
+            setItem({
+                first_name: personalInfo.first_name,
+                last_name: personalInfo.last_name,
+                rg: personalInfo.rg,
+                cpf: personalInfo.cpf,
+                phone: personalInfo.phone,
+                date_of_birth: personalInfo.date_of_birth,
+            })
+            setEditableInputs(false)
+        }
+    }, [personalInfo])
+
+    const handleValidate = (e) => {
+        const field = e.target.name
+        const value = e.target.value
+        switch(field){
+            case 'cpf':
+                setError([...error, error.map(item =>
+                    item.field === 'CPF' ? 
+                    item.error = !validators.ValidateCPF(value) :
+                    null)])
+                break;
+            case 'date_of_birth':
+                setError([...error, error.map(item => 
+                    item.field === 'date_of_birth' ? 
+                    item.error = !validators.ValidateDateOfBirth(value) :
+                    null)])
+                break;
+            case 'phone':
+                setError([...error, error.map(item => 
+                    item.field === 'phone' ? 
+                    item.error = !validators.ValidatePhone(value) :
+                    null)])
+                break;
+        }
+    }
+    
     const handleChange = (e) => {
         const name = e.target.name
         const value = e.target.value
         setItem({...item, [name]:value})
     }
 
-    const NotIsNull = () => {
-        if(item.first_name !== '' &&
-        item.last_name !== '' &&
-        item.rg !== '' &&
-        item.cpf !== '' &&
-        item.phone !== '' &&
-        item.date_of_birth !== ''){
-            return true
-        }
-        return false
-    }
-
-    const ValidateCPF = () => {
-        const regex_cpf_cnpj = /(^[0-9]{14})$|^([0-9]{11})$/
-        const validator_cpf = regex_cpf_cnpj.test(item.cpf)
-        if(!validator_cpf){
-            setError([...error, error.map(item => 
-                item.field === 'CPF' ? item.error = true : null)])
-        }else{
-            setError([...error, error.map(item => 
-                item.field === 'CPF' ? item.error = false : null)])
-        }
-    }
-
-    const ValidatePhone = () => {
-        const regex_phone = /^[0-9]{11}$/
-        const validator_phone = regex_phone.test(item.phone)
-        if(!validator_phone){
-            setError([...error, error.map(item => 
-                item.field === 'phone' ? item.error = true : null)])
-        }else{
-            setError([...error, error.map(item => 
-                item.field === 'phone' ? item.error = false : null)])
-        }
-    }
-
-    const ValidateDateOfBirth = () => {
-        const birth_year = Number(item.date_of_birth.split('-')[0])
-        const birth_month = Number(item.date_of_birth.split('-')[1])
-        const birth_day = Number(item.date_of_birth.split('-')[2])
-        const now =  Date.now()
-        const currentDate = new Date(now)
-        const currentYear = Number(currentDate.getFullYear())
-        const currentMonth = Number(currentDate.getMonth()) + 1
-        const currentDay = Number(currentDate.getDate())
-
-        if((currentYear - birth_year) < 18){   
-            setError([...error, error.map(item => 
-                item.field === 'date' ? item.error = true : null)])
-        }else if(currentYear - birth_year === 18){
-            if(currentMonth < birth_month){
-                setError([...error, error.map(item => 
-                    item.field === 'date' ? item.error = true : null)])
-            }else if(currentMonth === birth_month){
-                if(currentDay < birth_day){
-                    setError([...error, error.map(item => 
-                        item.field === 'date' ? item.error = true : null)])
-                }else{
-                    setError([...error, error.map(item => 
-                        item.field === 'date' ? item.error = false : null)])
-                }
-            }else{
-                setError([...error, error.map(item => 
-                    item.field === 'date' ? item.error = false : null)])
-            }
-        }else{
-            setError([...error, error.map(item => 
-                item.field === 'date' ? item.error = false : null)])
-        }
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault()
-    
         const isValid = true
-
         error.map(item => item.error ? isValid = false : null)
-        if(isValid && NotIsNull()){
+        if(isValid && validators.NotIsNull(item)){
             const data = {
                 first_name: item.first_name,
                 last_name: item.last_name,
@@ -174,7 +149,7 @@ const FormPersonalInfo = () => {
                     type='number'
                     name='cpf'
                     onChange={handleChange}
-                    onBlur={ValidateCPF}
+                    onBlur={handleValidate}
                     value={item.cpf} 
                     readOnly={!editableInputs}
                     /> 
@@ -185,7 +160,7 @@ const FormPersonalInfo = () => {
                     type='number'
                     name='phone'
                     onChange={handleChange}
-                    onBlur={ValidatePhone}
+                    onBlur={handleValidate}
                     value={item.phone}
                     readOnly={!editableInputs} 
                     /> 
@@ -196,12 +171,12 @@ const FormPersonalInfo = () => {
                     type='date'
                     name='date_of_birth'
                     onChange={handleChange}
-                    onBlur={ValidateDateOfBirth}
+                    onBlur={handleValidate}
                     value={item.date_of_birth}
                     readOnly={!editableInputs}
                     /> 
             </GroupInputs>
-            {isTherePersonalInfo ?
+            {!editableInputs ?
             <ButtonSubmit type='button'>Editar</ButtonSubmit> :
             <ButtonSubmit type='submit'>Salvar</ButtonSubmit>
             }   
