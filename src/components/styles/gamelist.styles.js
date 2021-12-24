@@ -4,7 +4,7 @@ export const ContainerGameList =  styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     max-width: 900px;
     margin-top: 40px;
@@ -13,13 +13,13 @@ export const OpacityFill = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    // position: relative;
     top: 0;
     left: 0;
     width: 100%;
     height: calc(100% - 73px);
     background: black;
-    z-index: 5;
+    z-index: 2;
     opacity: 0.7;
     margin: -100% 0 0 0;
     p {
@@ -33,6 +33,7 @@ export const ContainerGameItem = styled.div`
     border: 7px solid #fff;
     display: flex;
     min-width: 320px;
+    min-height: 300px;
     background: #FFFCD5;
     flex-direction: column;
     margin: 5px;

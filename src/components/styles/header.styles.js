@@ -21,6 +21,7 @@ export const ContainerHeader = styled.div`
     background-color: #005DA8;
     display: flex;
     justify-content: center;
+    z-index: 100;
 `
 export const HeaderLink = styled(Link)`
     color: white;
