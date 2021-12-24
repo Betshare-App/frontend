@@ -9,6 +9,25 @@ export const ContainerGameList =  styled.div`
     max-width: 900px;
     margin-top: 40px;
 `
+export const OpacityFill = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 73px);
+    background: black;
+    z-index: 5;
+    opacity: 0.7;
+    margin: -100% 0 0 0;
+    p {
+        color: white;
+        font-family: 'Futura Bold';
+        font-size: 1.3rem;
+    }
+`
 
 export const ContainerGameItem = styled.div`
     border: 7px solid #fff;

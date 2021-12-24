@@ -46,10 +46,29 @@ export const Input = styled.input`
     outline: none;
 `
 
+export const Select = styled.select`
+    flex: 1;
+    padding: 5px;
+    border: 1px solid;
+    outline: none;
+`
+
 export const SecundaryButton = styled(Link)`
     font-family: 'Futura Bold';
     text-decoration: none;
     color: #000;
+    margin-top: 5px;
+    &:hover{
+        opacity: 0.8;
+    }
+`
+
+export const TertiaryButton = styled.div`
+    font-family: 'Futura Bold';
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: orange;
     margin-top: 5px;
     &:hover{
         opacity: 0.8;

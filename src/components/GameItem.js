@@ -11,7 +11,8 @@ import {
     Button,
     CloseToggle,
     GroupToggle,
-    TotalQuotes} from './styles/gamelist.styles'
+    TotalQuotes,
+    OpacityFill} from './styles/gamelist.styles'
 import{ BackgroundFill} from './styles/confirmscreen.styles'
 import ConfirmScreen from './ConfirmScreen'
 import NumberList from './NumberList'
@@ -96,6 +97,10 @@ const GameItem = ({color, name, options, total_numbers, total_queue}) => {
                     numbers={numbers}
                     setSelecteds={setSelecteds}
                     confirm={confirmScreen}/>            
+                {!toggle && 
+                    <OpacityFill>
+                        <p>Clique para apostar na {context.name}</p>
+                    </OpacityFill>}
                 { toggle ?
                 <ContainerGameInput>
                     <GroupGameInput>
@@ -135,8 +140,7 @@ const GameItem = ({color, name, options, total_numbers, total_queue}) => {
                 <GroupToggle>
                     <GameNumbers color={color}><p>escolha entre {min} e {max} números</p></GameNumbers>
                 </GroupToggle>
-                
-                } 
+                }
             </ContainerGameItem>
             {confirmScreen && 
             <>

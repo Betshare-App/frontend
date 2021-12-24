@@ -55,6 +55,15 @@ const validators = {
         }
         return true
     },
+
+    ValidatePostalCode: (postalcode) => {
+        const regex_postal_code = /^[0-9]{8}$/
+        const validator_postal_code = regex_postal_code.test(postalcode)
+        if(!validator_postal_code){
+            return false
+        }
+        return true
+    }
 }
 
 export default validators

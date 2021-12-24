@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Form from '../components/Form'
-import { ButtonSubmit, ErrorMessage, GroupInputs, Input, Label, TitleForm } from '../components/styles/form.styles'
+import { ButtonSubmit, ErrorMessage, GroupInputs, Input, Label, SecundaryButton, TertiaryButton, TitleForm } from '../components/styles/form.styles'
 import { service } from '../services/api'
 import AuthContext from '../context/AuthContext'
 import validators from '../utils/validators'
@@ -177,7 +177,7 @@ const FormPersonalInfo = () => {
                     /> 
             </GroupInputs>
             {!editableInputs ?
-            <ButtonSubmit type='button'>Editar</ButtonSubmit> :
+            <TertiaryButton to='/' onClick={() => setEditableInputs(true)}>Editar</TertiaryButton> :
             <ButtonSubmit type='submit'>Salvar</ButtonSubmit>
             }   
         </Form>

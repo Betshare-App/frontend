@@ -20,7 +20,7 @@ const CartItem = ({item, onClick}) => {
 
     return (
         <>
-            <ContainerTableRow onClick={handleToggle} toggle={toggle} key={item['id']}>
+            <ContainerTableRow onClick={handleToggle} toggle={toggle}>
                 <TableItem><GameName>{item['option']['game']['name']}</GameName></TableItem>
                 <TableItem>{item['price']}</TableItem>
                 <TableItem><RemoveButton type='button' onClick={removeItem}>X</RemoveButton></TableItem>

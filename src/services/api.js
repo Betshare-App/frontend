@@ -9,7 +9,8 @@ import { URL,
     endpoint_register,
     endpoint_credIsValid,
     endpoint_get_balance,
-    endpoint_register_personal_info} from "../constants/globals"
+    endpoint_register_personal_info,
+    endpoint_register_address_info} from "../constants/globals"
 
 export const service = {
     getGames: async (access_token) =>{
@@ -218,6 +219,18 @@ export const service = {
         return request
     },
 
+    registerAddressInfo: async(access_token, data) =>{
+        const request = await fetch(URL+endpoint_register_address_info, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.status)
+        return request
+    },
+
     getPersonalInfo: async(access_token) => {
         const request = await fetch(URL+endpoint_register_personal_info, {
             method: 'GET',
@@ -226,7 +239,24 @@ export const service = {
                 'Content-Type': 'application/json'
             }
         })
-        const status = await request.status
+        const status = request.status
+        if(status === 200){
+            const data = await request.json()
+            return data
+        }else{
+            return {}
+        }
+    },
+
+    getAddressInfo: async(access_token) => {
+        const request = await fetch(URL+endpoint_register_address_info, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        const status = request.status
         if(status === 200){
             const data = await request.json()
             return data
