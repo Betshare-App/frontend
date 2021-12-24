@@ -102,3 +102,25 @@ export const ContainerTicketsLink = styled.div`
         color: #fff;
     }
 `
+
+export const MenuScreenMobile = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: -10px;
+    top: 40px;
+    height: 100%;
+    width: 100vw;
+    background: black;
+    opacity: 0.9; 
+    padding-top: 20px;
+    div{
+        margin-top: 40px;
+        font-size: 1.8rem;
+    }
+    a {
+        margin-top: 10px;
+        font-size: 1.8rem;
+    }
+`

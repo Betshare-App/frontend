@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Balance from '../components/Balance'
 import CartLink from '../components/CartLink'
 import InfoLink from '../components/InfoLink'
 import LoginButton from '../components/LoginButton'
 import Logo from '../components/Logo'
 import LogoutButton from '../components/LogoutButton'
+import Menu from '../components/Menu'
 import { ContainerAuth, ContainerHeader, Inner } from '../components/styles/header.styles'
 import TicketsLink from '../components/TicketsLink'
 import AuthContext from '../context/AuthContext'
@@ -15,15 +16,14 @@ const Header = () => {
         <ContainerHeader>
             <Inner>
                 <Logo />
-                {access_token && <Balance access_token={access_token} />}
                 <ContainerAuth>
                 {access_token ?
-                <>
-                    <InfoLink />
-                    <CartLink />
-                    <TicketsLink />
-                    <LogoutButton />
-                </> : 
+                    <Menu>
+                        <InfoLink />
+                        <CartLink />
+                        <TicketsLink />
+                        <LogoutButton />
+                    </Menu> : 
                     <LoginButton />
                 }
                 </ContainerAuth>
