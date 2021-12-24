@@ -13,6 +13,7 @@ const Menu = ({children}) => {
             setMobile(true)
         }else{
             setMobile(false)
+            setShowMenu(false)
         }
     }, [width])
     
