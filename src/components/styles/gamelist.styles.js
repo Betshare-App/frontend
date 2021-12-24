@@ -17,7 +17,7 @@ export const OpacityFill = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 73px);
+    height: calc(100% - 74px);
     background: black;
     z-index: 2;
     opacity: 0.7;
