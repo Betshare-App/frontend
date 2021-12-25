@@ -207,64 +207,6 @@ export const service = {
         return response
     },
 
-    registerPersonalInfo: async(access_token, data) => {
-        const request = await fetch(URL+endpoint_register_personal_info, {
-            method: 'POST',
-            headers:{
-                'Authorization': `Bearer ${access_token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(response => response.status)
-        return request
-    },
-
-    registerAddressInfo: async(access_token, data) =>{
-        const request = await fetch(URL+endpoint_register_address_info, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${access_token}`,
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(response => response.status)
-        return request
-    },
-
-    getPersonalInfo: async(access_token) => {
-        const request = await fetch(URL+endpoint_register_personal_info, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${access_token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        const status = request.status
-        if(status === 200){
-            const data = await request.json()
-            return data
-        }else{
-            return {}
-        }
-    },
-
-    getAddressInfo: async(access_token) => {
-        const request = await fetch(URL+endpoint_register_address_info, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${access_token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        const status = request.status
-        if(status === 200){
-            const data = await request.json()
-            return data
-        }else{
-            return {}
-        }
-    },
-    
     credentialsIsValid: async (username, email) => {
         const data = JSON.stringify({
             'username': username,
@@ -282,16 +224,4 @@ export const service = {
         return {username_isvalid, email_isvalid}
     },
 
-    getBalance: async (access_token) => {
-        const response = await fetch(URL+endpoint_get_balance, {
-            headers: {
-                'Authorization': `Bearer ${access_token}`
-            }
-        })
-        if(response.status === 200){
-            const balance = await response.json()
-            return balance
-        }
-        return 0
-    }
 }

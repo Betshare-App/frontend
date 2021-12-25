@@ -9,7 +9,6 @@ import validators from '../utils/validators'
 const FormPersonalInfo = () => {
     const navigate = useNavigate()
     const { access_token } = useContext(AuthContext)
-    const [personalInfo, setPersonalInfo] = useState({})
     const [editableInputs, setEditableInputs] = useState(true)
     const [error, setError] = useState([
         {
@@ -33,28 +32,6 @@ const FormPersonalInfo = () => {
         phone: '',
         date_of_birth: '',
     })
-
-    useEffect(() => {
-        const getPersonalInfo = async () => {
-            const data = await service.getPersonalInfo(access_token)
-            setPersonalInfo(data)
-        }
-        getPersonalInfo()
-    }, [])
-
-    useEffect(() => {
-        if(Object.keys(personalInfo).length > 0){
-            setItem({
-                first_name: personalInfo.first_name,
-                last_name: personalInfo.last_name,
-                rg: personalInfo.rg,
-                cpf: personalInfo.cpf,
-                phone: personalInfo.phone,
-                date_of_birth: personalInfo.date_of_birth,
-            })
-            setEditableInputs(false)
-        }
-    }, [personalInfo])
 
     const handleValidate = (e) => {
         const field = e.target.name
@@ -99,12 +76,6 @@ const FormPersonalInfo = () => {
                 cpf: item.cpf,
                 phone: item.phone,
                 date_of_birth: item.date_of_birth
-            }
-            const status = await service.registerPersonalInfo(access_token, data)
-            if(status === 200){
-                navigate('/home')
-            }else{
-                alert('Algo deu errado com a sua atualização!' + status)
             }
         }
     }

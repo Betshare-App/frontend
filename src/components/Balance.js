@@ -4,13 +4,6 @@ import { LabelBalance } from './styles/header.styles'
 
 const Balance = ({access_token}) => {
     const [balance, setBalance] = useState(0)
-    useEffect(() => {
-        const getData = async () => {
-            const data = await service.getBalance(access_token)
-            setBalance(data)
-        }
-        getData()
-    })
 
     return (
         <LabelBalance>
